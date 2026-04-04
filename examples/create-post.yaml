@@ -1,0 +1,37 @@
+version: 1
+# JSONPlaceholder — free fake REST API for testing
+baseUrl: https://jsonplaceholder.typicode.com
+headers:
+  Content-Type: application/json
+
+requests:
+  # Create a new post
+  createPost:
+    path: /posts
+    method: POST
+    body:
+      title: Hello from fraft
+      body: This post was created declaratively using a YAML config.
+      userId: 1
+
+  # Update an existing post (full replace)
+  updatePost:
+    path: /posts/1
+    method: PUT
+    body:
+      id: 1
+      title: Updated title
+      body: Updated body content.
+      userId: 1
+
+  # Partial update
+  patchPost:
+    path: /posts/1
+    method: PATCH
+    body:
+      title: Patched title only
+
+  # Delete a post
+  deletePost:
+    path: /posts/1
+    method: DELETE

@@ -1,0 +1,39 @@
+version: 1
+# Uses Open-Meteo — free, no API key required
+baseUrl: https://api.open-meteo.com
+
+requests:
+  # Current weather for New York City
+  nyc-weather:
+    path: /v1/forecast
+    params:
+      latitude: 40.7128
+      longitude: -74.0060
+      current: temperature_2m,wind_speed_10m,weathercode
+      temperature_unit: fahrenheit
+      wind_speed_unit: mph
+      timezone: America/New_York
+
+  # Hourly forecast for the next 24 hours, converted to a narrower shape
+  # via middleware (see weather.mjs)
+  nyc-hourly:
+    path: /v1/forecast
+    params:
+      latitude: 40.7128
+      longitude: -74.0060
+      hourly: temperature_2m,precipitation_probability,windspeed_10m
+      temperature_unit: fahrenheit
+      wind_speed_unit: mph
+      timezone: America/New_York
+      forecast_days: 1
+    transform:
+      - middleware: flattenHourly
+
+# --- With auth (fictitious weather service) ---
+# Uncomment and set WEATHER_API_KEY to use:
+#
+# auth:
+#   type: apiKey
+#   in: query
+#   name: appid
+#   value: "${env.WEATHER_API_KEY}"
