@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@go-denki/fraft": "latest",
+    "@go-denki/fraft": "0.2.2",
     "@types/prismjs": "^1.26.6",
     "axios": "^1.14.0",
     "js-yaml": "^4.1.1",

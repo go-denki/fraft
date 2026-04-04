@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { FraftClient } from "@go-denki/fraft";
 import yaml from "js-yaml";
 import Editor from "react-simple-code-editor";
@@ -39,7 +39,7 @@ baseUrl: https://jsonplaceholder.typicode.com
 
 requests:
   todo:
-    path: /todos/1
+    path: /todos/:id
     method: GET
 
   posts:
@@ -69,6 +69,27 @@ function getRequestNames(text: string): string[] {
   return [];
 }
 
+function detectPathParams(text: string, reqName: string): string[] {
+  try {
+    const parsed = yaml.load(text) as Record<string, unknown>;
+    const requests = (parsed as { requests?: Record<string, unknown> })
+      ?.requests;
+    if (requests && typeof requests === "object") {
+      const def = (requests as Record<string, unknown>)[reqName];
+      if (def && typeof def === "object") {
+        const path = (def as Record<string, unknown>).path;
+        if (typeof path === "string") {
+          const matches = path.match(/:([A-Za-z_][A-Za-z0-9_]*)/g);
+          if (matches) return matches.map((m) => m.slice(1));
+        }
+      }
+    }
+  } catch {
+    // invalid config
+  }
+  return [];
+}
+
 export default function App() {
   const [mode, setMode] = useState<"editor" | "builder">("editor");
   const [configText, setConfigText] = useState(DEFAULT_CONFIG);
@@ -88,6 +109,22 @@ export default function App() {
   const [selectedCollectionId, setSelectedCollectionId] = useState<string>("");
   const [saveInputVisible, setSaveInputVisible] = useState(false);
   const [saveInputValue, setSaveInputValue] = useState("");
+  const [pathParamValues, setPathParamValues] = useState<Record<string, string>>({ id: "1" });
+
+  const detectedPathParams = detectPathParams(configText, requestName);
+
+  // keep pathParamValues in sync when detected params change
+  useEffect(() => {
+    setPathParamValues((prev) => {
+      const next: Record<string, string> = {};
+      for (const p of detectedPathParams) {
+        next[p] = prev[p] ?? "";
+      }
+      return next;
+    });
+    // detectedPathParams is derived, stringify to avoid unnecessary runs
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [configText, requestName]);
 
   const handleSaveCollection = useCallback(() => {
     const name = saveInputValue.trim();
@@ -200,7 +237,19 @@ export default function App() {
     const start = performance.now();
     try {
       const client = new FraftClient({ config: parsed });
-      const result = await client.run(requestName);
+      const pathParamsOverride: Record<string, string | number> = {};
+      for (const [k, v] of Object.entries(pathParamValues)) {
+        if (v !== "") {
+          const num = Number(v);
+          pathParamsOverride[k] = isNaN(num) ? v : num;
+        }
+      }
+      const result = await client.run(
+        requestName,
+        Object.keys(pathParamsOverride).length > 0
+          ? { pathParams: pathParamsOverride }
+          : {},
+      );
       if (controller.signal.aborted) return;
       const ms = Math.round(performance.now() - start);
       setElapsed(ms);
@@ -389,6 +438,7 @@ export default function App() {
             )}
 
             <div className={styles.toolbar}>
+              <div className={styles.toolbarMainRow}>
               <div className={styles.requestRow}>
                 <label className={styles.label} htmlFor="req-select">
                   Request
@@ -441,6 +491,29 @@ export default function App() {
                   </>
                 )}
               </button>
+              </div>
+
+              {detectedPathParams.length > 0 && (
+                <div className={styles.pathParamsRow}>
+                  <span className={styles.label}>Path params</span>
+                  {detectedPathParams.map((param) => (
+                    <div key={param} className={styles.pathParamField}>
+                      <span className={styles.pathParamName}>:{param}</span>
+                      <input
+                        className={styles.pathParamInput}
+                        placeholder="value"
+                        value={pathParamValues[param] ?? ""}
+                        onChange={(e) =>
+                          setPathParamValues((prev) => ({
+                            ...prev,
+                            [param]: e.target.value,
+                          }))
+                        }
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </section>
 
