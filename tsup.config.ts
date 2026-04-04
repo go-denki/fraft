@@ -10,6 +10,7 @@ export default defineConfig({
   clean: true,
   treeshake: true,
   async onSuccess() {
+    copyFileSync("package.json", "dist/package.json");
     copyFileSync("README.md", "dist/README.md");
   },
 });
