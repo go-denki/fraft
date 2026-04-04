@@ -10,9 +10,6 @@ jobs:
   release:
     name: Publish to npm
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # needed to create a GitHub Release
-      id-token: write # needed for npm provenance
 
     steps:
       - name: Checkout
