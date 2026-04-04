@@ -1,6 +1,6 @@
 {
   "name": "@go-denki/fraft",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Dynamically fetch or send API data using JSON/YAML config with a built-in transform pipeline",
   "type": "module",
   "main": "./dist/index.cjs",
