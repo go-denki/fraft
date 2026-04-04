@@ -2,6 +2,8 @@
 
 Declarative API fetching for Node.js. Define HTTP requests and data transformations in a JSON or YAML config file, then execute them with a single method call.
 
+[Playground](https://fraft.playground.godenki.com/) · [Docs](https://fraft.docs.godenki.com/)
+
 ```yaml
 # api.yaml
 version: 1
