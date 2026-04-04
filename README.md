@@ -278,12 +278,17 @@ const data = await client.run('users', {
   params: { limit: 5 },
   headers: { 'X-Trace-Id': '123' },
 });
+
+// With path params:
+const user = await client.run('getUser', { pathParams: { id: 42 } });
+// path: '/users/:id' → GET /users/42
 ```
 
 **Overrides** (`RunOverrides`):
 
 | Field | Type | Description |
 |-------|------|-------------|
+| `pathParams` | `Record<string, string \| number>` | Values interpolated into `:param` segments of the request path. |
 | `params` | `Record<string, unknown>` | Merged over config-defined params. |
 | `body` | `unknown` | Replaces the config-defined body. |
 | `headers` | `Record<string, string>` | Merged over config-defined headers. |
@@ -460,7 +465,7 @@ See the [`examples/`](./examples) directory for ready-to-run examples:
 - [ ] Multipart / `form-data` request body support
 - [ ] Request and response interceptor hooks
 - [ ] Streaming response support
-- [ ] Expand `RunOverrides` to allow overriding method, path, and transforms
+- [x] Expand `RunOverrides` to allow path params (`:param` syntax) — method and transform overrides still pending
 
 ### Middleware
 - [ ] Global middleware — registered middleware runs on every request

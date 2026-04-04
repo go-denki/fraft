@@ -49,7 +49,7 @@ This page tracks planned improvements to fraft. Items are grouped by area and ro
 - [ ] Multipart / `form-data` request body support
 - [ ] Request and response interceptor hooks
 - [ ] Streaming response support
-- [ ] Expand `RunOverrides` to allow overriding method, path, and transforms
+- [x] Expand `RunOverrides` to allow path params (`:param` syntax) — method and transform overrides still pending
 
 ---
 

@@ -96,6 +96,8 @@ export interface FraftConfig {
 // ---------------------------------------------------------------------------
 
 export interface RunOverrides {
+  /** Path parameter values to interpolate into `:param` segments of the request path. */
+  pathParams?: Record<string, string | number>;
   params?: Record<string, unknown>;
   body?: unknown;
   headers?: Record<string, string>;

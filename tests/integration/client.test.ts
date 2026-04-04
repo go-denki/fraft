@@ -185,4 +185,46 @@ describe('FraftClient integration', () => {
     });
     await expect(client.run('ping')).rejects.toThrow('"unregistered"');
   });
+
+  it('interpolates a single path param at call time', async () => {
+    mock.onGet(`${BASE}/users/42`).reply(200, { user_id: 42, first: 'Alice' });
+
+    const client = new FraftClient({
+      config: {
+        baseUrl: BASE,
+        requests: { getUser: { path: '/users/:id' } },
+      },
+      axiosInstance: axios,
+    });
+
+    const result = await client.run('getUser', { pathParams: { id: 42 } });
+    expect(result).toEqual({ user_id: 42, first: 'Alice' });
+  });
+
+  it('interpolates multiple path params at call time', async () => {
+    mock.onGet(`${BASE}/users/3/posts/7`).reply(200, { postId: 7 });
+
+    const client = new FraftClient({
+      config: {
+        baseUrl: BASE,
+        requests: { getPost: { path: '/users/:userId/posts/:postId' } },
+      },
+      axiosInstance: axios,
+    });
+
+    const result = await client.run('getPost', { pathParams: { userId: 3, postId: 7 } });
+    expect(result).toEqual({ postId: 7 });
+  });
+
+  it('throws when a path param referenced in path is missing from pathParams', async () => {
+    const client = new FraftClient({
+      config: {
+        baseUrl: BASE,
+        requests: { getUser: { path: '/users/:id' } },
+      },
+      axiosInstance: axios,
+    });
+
+    await expect(client.run('getUser', { pathParams: {} })).rejects.toThrow('":id"');
+  });
 });

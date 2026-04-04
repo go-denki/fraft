@@ -38,13 +38,37 @@ Each key under `requests` maps to a `RequestDef`:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `path` | `string` | — | URL path appended to `baseUrl`. |
+| `path` | `string` | — | URL path appended to `baseUrl`. Supports `:param` segments (e.g. `/users/:id`). |
 | `method` | `HttpMethod` | `"GET"` | HTTP method: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `HEAD`, `OPTIONS`. |
 | `headers` | `Record<string, string>` | — | Per-request headers, merged over global headers. |
 | `params` | `Record<string, unknown>` | — | Query string parameters. |
 | `body` | `unknown` | — | Request body (serialized to JSON). |
 | `transform` | `TransformStep[]` | — | Ordered list of transform steps applied to the response. |
 | `axiosConfig` | `AxiosRequestConfig` | — | Advanced axios options (`timeout`, `responseType`, etc.). |
+
+### Path parameters
+
+Use `:param` segments in `path` to mark dynamic parts of the URL. Supply the values at call time via `pathParams` in `RunOverrides`:
+
+```yaml
+requests:
+  getUser:
+    path: /users/:id
+  getUserPost:
+    path: /users/:userId/posts/:postId
+```
+
+```js
+await client.run('getUser', { pathParams: { id: 42 } });
+// → GET /users/42
+
+await client.run('getUserPost', { pathParams: { userId: 3, postId: 7 } });
+// → GET /users/3/posts/7
+```
+
+If a `:param` segment is present in `path` but the corresponding key is not supplied in `pathParams`, fraft throws at call time.
+
+---
 
 ### POST with a body
 
