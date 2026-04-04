@@ -1,26 +1,23 @@
 {
   "name": "@go-denki/fraft",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Dynamically fetch or send API data using JSON/YAML config with a built-in transform pipeline",
   "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./index.cjs",
+  "module": "./index.js",
+  "types": "./index.d.ts",
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./index.d.ts",
+        "default": "./index.js"
       },
       "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
+        "types": "./index.d.cts",
+        "default": "./index.cjs"
       }
     }
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -48,7 +45,7 @@
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^22.13.10",
+    "@types/node": "^22.19.17",
     "axios-mock-adapter": "^2.1.0",
     "tsup": "^8.4.0",
     "typescript": "^5.8.2",
