@@ -1,7 +1,7 @@
 // transforms.mjs — Demonstrates all built-in transform steps
 // Run: node examples/transforms.mjs
 
-import { FraftClient } from "fraft";
+import { FraftClient } from '@go-denki/fraft';
 
 // Inline config object — no file needed
 const client = new FraftClient({

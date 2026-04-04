@@ -1,5 +1,5 @@
 {
-  "name": "fraft",
+  "name": "@go-denki/fraft",
   "version": "0.1.0",
   "description": "Dynamically fetch or send API data using JSON/YAML config with a built-in transform pipeline",
   "type": "module",
@@ -39,8 +39,10 @@
     "pipeline"
   ],
   "license": "MIT",
+  "peerDependencies": {
+    "axios": "^1.6.0 || ^2.0.0"
+  },
   "dependencies": {
-    "axios": "^1.7.9",
     "js-yaml": "^4.1.0",
     "zod": "^3.24.2"
   },

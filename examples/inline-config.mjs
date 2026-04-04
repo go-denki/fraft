@@ -2,7 +2,7 @@
 // Useful when you want to generate config programmatically at runtime.
 // Run: node examples/inline-config.mjs
 
-import { FraftClient } from 'fraft';
+import { FraftClient } from '@go-denki/fraft';
 
 function buildConfig(userId) {
   return {

@@ -16,7 +16,7 @@ requests:
 ```
 
 ```js
-import { FraftClient } from 'fraft';
+import { FraftClient } from '@go-denki/fraft';
 
 const client = new FraftClient({ config: 'api.yaml' });
 const todos = await client.run('todos');
@@ -45,7 +45,7 @@ const todos = await client.run('todos');
 ## Installation
 
 ```bash
-npm install fraft
+npm install @go-denki/fraft
 ```
 
 ---
@@ -75,7 +75,7 @@ requests:
 **2. Run it**:
 
 ```js
-import { FraftClient } from 'fraft';
+import { FraftClient } from '@go-denki/fraft';
 
 const client = new FraftClient({ config: 'api.yaml' });
 const users = await client.run('users');
@@ -254,7 +254,7 @@ Calls a named function registered via `client.use()`. See [Custom Middleware](#c
 ### `FraftClient`
 
 ```ts
-import { FraftClient } from 'fraft';
+import { FraftClient } from '@go-denki/fraft';
 ```
 
 #### `new FraftClient(options)`
@@ -344,7 +344,7 @@ import type {
   RequestContext,
   MiddlewareFn,
   FraftClientOptions,
-} from 'fraft';
+} from '@go-denki/fraft';
 ```
 
 ---
@@ -382,7 +382,7 @@ requests:
 ```
 
 ```ts
-import { FraftClient } from 'fraft';
+import { FraftClient } from '@go-denki/fraft';
 
 const client = new FraftClient({ config: 'api.yaml' });
 

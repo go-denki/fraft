@@ -1,7 +1,7 @@
 // middleware.mjs — Custom middleware transform
 // Run: node examples/middleware.mjs
 
-import { FraftClient } from 'fraft';
+import { FraftClient } from '@go-denki/fraft';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
