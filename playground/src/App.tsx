@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef } from "react";
+import { FraftClient } from "@go-denki/fraft";
 import yaml from "js-yaml";
 import Editor from "react-simple-code-editor";
 import Prism from "prismjs";
@@ -198,30 +199,13 @@ export default function App() {
 
     const start = performance.now();
     try {
-      const res = await fetch("/api/run", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ config: parsed, requestName }),
-        signal: controller.signal,
-      });
-      const text = await res.text();
-      let data: { result?: unknown; error?: string };
-      try {
-        data = JSON.parse(text) as { result?: unknown; error?: string };
-      } catch {
-        throw new Error(
-          `Server returned a non-JSON response (HTTP ${res.status}). Is the playground server running?`,
-        );
-      }
+      const client = new FraftClient({ config: parsed });
+      const result = await client.run(requestName);
+      if (controller.signal.aborted) return;
       const ms = Math.round(performance.now() - start);
       setElapsed(ms);
-      if (!res.ok || data.error) {
-        setStatus("error");
-        setError(data.error ?? `HTTP ${res.status}`);
-      } else {
-        setStatus("success");
-        setResult(data.result);
-      }
+      setStatus("success");
+      setResult(result);
     } catch (err) {
       if ((err as { name?: string }).name === "AbortError") return;
       setStatus("error");
