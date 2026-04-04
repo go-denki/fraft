@@ -6,6 +6,7 @@
 ## Executing a task
 
 - Always follow the to-do list;
+- Always check for type, build or lint errors;
 
 ## Git
 
