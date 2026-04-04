@@ -1,0 +1,336 @@
+/* ── Scrollable container ─────────────────────────────────────────────────── */
+
+.builder {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Section ──────────────────────────────────────────────────────────────── */
+
+.section {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.sectionLabel {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  user-select: none;
+}
+
+.sectionHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── Shared input ─────────────────────────────────────────────────────────── */
+
+.inp {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 5px 9px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  outline: none;
+  transition: border-color 0.15s;
+  min-width: 0;
+  width: 100%;
+}
+
+.inp:focus {
+  border-color: var(--accent);
+}
+
+.inp::placeholder {
+  color: var(--text-muted);
+}
+
+/* ── KV editor ────────────────────────────────────────────────────────────── */
+
+.kvList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.kvRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.kvRow .inp {
+  flex: 1;
+}
+
+.kvSep {
+  color: var(--text-muted);
+  font-size: 12px;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+}
+
+/* ── Icon button (×) ──────────────────────────────────────────────────────── */
+
+.iconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: background 0.12s, color 0.12s;
+}
+
+.iconBtn:hover {
+  background: rgba(248, 113, 113, 0.15);
+  color: var(--error);
+}
+
+/* ── Add button ───────────────────────────────────────────────────────────── */
+
+.addBtn {
+  align-self: flex-start;
+  border: 1px dashed var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.addBtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Auth ─────────────────────────────────────────────────────────────────── */
+
+.authToggleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.authToggleRow input[type="checkbox"] {
+  accent-color: var(--accent);
+  width: 14px;
+  height: 14px;
+}
+
+.authFields {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ── Request card ─────────────────────────────────────────────────────────── */
+
+.reqList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reqCard {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.reqHeader {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 10px;
+  background: var(--surface2);
+  cursor: pointer;
+  user-select: none;
+}
+
+.reqHeader:hover {
+  background: color-mix(in srgb, var(--surface2) 80%, var(--accent) 20%);
+}
+
+.nameInp {
+  flex: 0 0 130px;
+  font-weight: 600;
+}
+
+.methodSelect {
+  flex: 0 0 80px;
+  background: var(--surface);
+  color: var(--accent);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 5px 7px;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  outline: none;
+  cursor: pointer;
+}
+
+.method-GET    { color: #67e8a9; }
+.method-POST   { color: #93c5fd; }
+.method-PUT    { color: #fcd34d; }
+.method-PATCH  { color: #f9a8d4; }
+.method-DELETE { color: #f87171; }
+
+.pathInp {
+  flex: 1;
+}
+
+.chevron {
+  font-size: 9px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  margin-left: 2px;
+}
+
+.reqBody {
+  padding: 12px;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 1px solid var(--border);
+}
+
+/* ── Field group ──────────────────────────────────────────────────────────── */
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.fieldLabelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hint {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.bodyArea {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 7px 9px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  outline: none;
+  resize: vertical;
+  min-height: 72px;
+  width: 100%;
+  transition: border-color 0.15s;
+}
+
+.bodyArea:focus {
+  border-color: var(--accent);
+}
+
+.bodyArea::placeholder {
+  color: var(--text-muted);
+}
+
+/* ── Transform step card ──────────────────────────────────────────────────── */
+
+.stepCard {
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.stepHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+
+.stepTypeSelect {
+  background: var(--surface);
+  color: var(--accent);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3px 7px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  outline: none;
+  cursor: pointer;
+}
+
+.stepBody {
+  padding: 8px;
+  background: var(--bg);
+}
+
+/* ── Filter row ───────────────────────────────────────────────────────────── */
+
+.filterRow {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.filterRow .inp {
+  flex: 1;
+}
+
+.opSelect {
+  flex: 0 0 auto;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 5px 7px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  outline: none;
+}
+
+.opSelect:focus {
+  border-color: var(--accent);
+}

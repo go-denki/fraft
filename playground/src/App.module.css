@@ -32,6 +32,208 @@
   font-size: 12px;
 }
 
+/* ── Body (sidebar + main) ── */
+.body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 42px;
+  box-sizing: border-box;
+  padding: 0 10px 0 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.sidebarTitle {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.sidebarActions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sidebarAddBtn {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 1;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+
+.sidebarAddBtn:hover {
+  color: var(--accent);
+  background: var(--surface2);
+  border-color: var(--border);
+}
+
+.sidebarSaveRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.sidebarSaveRow .saveInput {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+.sidebarConfirmBtn {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.sidebarConfirmBtn:hover:not(:disabled) {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.sidebarConfirmBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.collectionList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.collectionItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 8px 8px 16px;
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.collectionItem:hover {
+  background: var(--surface2);
+}
+
+.collectionItem:hover .collectionItemDel {
+  opacity: 1;
+}
+
+.collectionItemActive {
+  background: var(--surface2);
+  border-left-color: var(--accent);
+}
+
+.collectionItemName {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.collectionItemDel {
+  opacity: 0;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  line-height: 1;
+  border-radius: 3px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  transition: opacity 0.12s, color 0.12s;
+}
+
+.collectionItemDel:hover {
+  color: var(--error);
+}
+
+.dirtyDot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.85;
+}
+
+.saveCollectionBtn {
+  margin-left: auto;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 4px;
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+
+.saveCollectionBtn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.collectionEmpty {
+  padding: 20px 16px;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.6;
+}
+
 /* ── Main split ── */
 .main {
   display: grid;
@@ -57,7 +259,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 16px;
+  height: 42px;
+  box-sizing: border-box;
+  padding: 0 16px;
   background: var(--surface2);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
@@ -93,24 +297,118 @@
   color: var(--error);
 }
 
-/* ── Editor textarea ── */
-.editor {
+/* ── Editor (react-simple-code-editor wrapper) ── */
+.editorWrapper {
   flex: 1;
-  resize: none;
-  border: none;
-  outline: none;
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-mono);
-  font-size: 13px;
-  line-height: 1.65;
-  padding: 16px;
-  tab-size: 2;
   overflow-y: auto;
+  background: var(--bg);
 }
 
-.editor::placeholder {
+.builderWrapper {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--bg);
+}
+
+/* ── Tabs ── */
+.tabs {
+  display: flex;
+  gap: 2px;
+}
+
+.tab {
+  padding: 3px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background: transparent;
   color: var(--text-muted);
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+
+.tab:hover {
+  color: var(--text);
+}
+
+.tabActive {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.editor {
+  min-height: 100%;
+  background: transparent !important;
+  caret-color: var(--text);
+  color: var(--text);
+}
+
+/* Ensure un-tokenized text in the highlighted <pre> is always visible */
+.editor pre,
+.editor pre * {
+  color: inherit;
+}
+
+.editorTextarea {
+  outline: none !important;
+  color: transparent;
+}
+
+/* ── Prism token colours (dark theme) ── */
+:global(.token.comment),
+:global(.token.prolog),
+:global(.token.doctype),
+:global(.token.cdata) {
+  color: #6b7094;
+}
+
+:global(.token.punctuation) {
+  color: #c9cfe8;
+}
+
+:global(.token.property),
+:global(.token.tag),
+:global(.token.boolean),
+:global(.token.number),
+:global(.token.constant),
+:global(.token.symbol),
+:global(.token.deleted) {
+  color: #f4a4a4;
+}
+
+:global(.token.selector),
+:global(.token.attr-name),
+:global(.token.string),
+:global(.token.char),
+:global(.token.builtin),
+:global(.token.inserted) {
+  color: #a8d9a8;
+}
+
+:global(.token.operator),
+:global(.token.entity),
+:global(.token.url),
+:global(.language-css .token.string),
+:global(.style .token.string) {
+  color: #c9cfe8;
+}
+
+:global(.token.atrule),
+:global(.token.attr-value),
+:global(.token.keyword) {
+  color: #9585ff;
+}
+
+:global(.token.function),
+:global(.token.class-name) {
+  color: #7eb8f7;
+}
+
+:global(.token.regex),
+:global(.token.important),
+:global(.token.variable) {
+  color: #f9c97c;
 }
 
 /* ── Toolbar ── */
@@ -252,8 +550,39 @@
   animation: spin 0.7s linear infinite;
 }
 
+/* ── Save input (shared) ── */
+.saveInput {
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 5px 8px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  outline: none;
+  width: 100%;
+}
+
 /* ── Responsive ── */
-@media (max-width: 720px) {
+@media (max-width: 900px) {
+  .sidebar {
+    width: 180px;
+  }
+}
+
+@media (max-width: 640px) {
+  .body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    max-height: 180px;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
   .main {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
