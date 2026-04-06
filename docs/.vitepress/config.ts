@@ -1,11 +1,20 @@
 import { defineConfig } from "vitepress";
 
+const clarityId = process.env.FRAFT_DOCS_PROJECT_ID;
+
+const claritySnippet = clarityId
+  ? `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${clarityId}");`
+  : null;
+
 export default defineConfig({
   title: "fraft",
   description: "Declarative, config-driven HTTP client for Node.js",
   base: "/",
 
-  head: [["link", { rel: "icon", href: "/favicon.ico" }]],
+  head: [
+    ["link", { rel: "icon", href: "/favicon.ico" }],
+    ...(claritySnippet ? [["script", {}, claritySnippet] as [string, Record<string, string>, string]] : []),
+  ],
 
   themeConfig: {
     nav: [
