@@ -3,9 +3,6 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 export default defineConfig({
-  define: {
-    __CLARITY_PROJECT_ID__: JSON.stringify(process.env.FRAFT_PLAYGROUND_PROJECT_ID ?? ''),
-  },
   plugins: [react()],
   resolve: {
     conditions: ['module', 'import', 'default'],
